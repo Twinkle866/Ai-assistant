@@ -7,7 +7,12 @@ import chatRouter from './routes/chatRoutes.js'
 import messageRouter from './routes/messageRoutes.js'
 import creditRouter from './routes/creditRoutes.js'
 import { stripeWebhooks } from './controllers/webhooks.js'
-const path = require('path');
+import path from 'path'
+import { fileURLToPath } from 'url'
+import {dirname} from 'path'
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express()
 
 // Connect DB
