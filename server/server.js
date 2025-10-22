@@ -31,17 +31,12 @@ app.use('/api/credit',creditRouter)
 // FIX: Use path.resolve(process.cwd()) for safer static path during server start
 app.use(express.static(path.resolve(process.cwd(), 'Client', 'dist')));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
+});
+
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })
-
-// FIX: Two-line fallback for reliable client-side routing
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
-});
-
-app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
-});
