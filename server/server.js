@@ -1,5 +1,5 @@
 import express from 'express'
-import 'dotenv/config'   
+import 'dotenv/config'   
 import cors from 'cors'
 import connectDB from './configs/db.js'
 import userRouter from './routes/userRoutes.js'
@@ -16,27 +16,32 @@ const __dirname = dirname(__filename);
 
 const app = express()
 
+// Connect DB
 await connectDB()
 
+// Stripe webhooks 
 app.post('/api/strive', express.raw({type:'application/json'}), stripeWebhooks)
 
+// Middleware
 app.use(cors())
 app.use(express.json())
 
+//ROUTES
 app.use('/api/user' , userRouter)
 app.use('/api/chat', chatRouter)
 app.use('/api/message',messageRouter)
 app.use('/api/credit',creditRouter)
 
-// FIX: Use path.resolve(process.cwd()) for safer static path during server start
-app.use(express.static(path.resolve(process.cwd(), 'Client', 'dist')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
+app.use(express.static(path.join(__dirname, '..', 'Client', 'dist')));
+
+app.use((req, res) => {
+    
+    res.sendFile(path.resolve(__dirname, '..', 'Client', 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port ${PORT}`)
 })
