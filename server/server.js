@@ -11,31 +11,25 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import {dirname} from 'path'
 
-// ESM equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const app = express()
 
-// Connect DB
 await connectDB()
 
-// Stripe webhooks (Must be before express.json() if you need the raw body)
 app.post('/api/strive', express.raw({type:'application/json'}), stripeWebhooks)
 
-// Middleware
 app.use(cors())
 app.use(express.json())
 
-// --- 1. API ROUTES (Define all your API routes here) ---
 app.use('/api/user' , userRouter)
 app.use('/api/chat', chatRouter)
 app.use('/api/message',messageRouter)
 app.use('/api/credit',creditRouter)
 
-// --- 2. SERVE FRONTEND STATIC ASSETS ---
-// This serves JS/CSS/Images from the Client/dist build folder.
-app.use(express.static(path.join(__dirname, '..', 'Client', 'dist')));
+// FIX: Use path.resolve(process.cwd()) for safer static path during server start
+app.use(express.static(path.resolve(process.cwd(), 'Client', 'dist')));
 
 const PORT = process.env.PORT || 3000
 
@@ -43,11 +37,11 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })
 
-
+// FIX: Two-line fallback for reliable client-side routing
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'Client', 'dist', 'index.html'));
+    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'Client', 'dist', 'index.html'));
+    res.sendFile(path.resolve(process.cwd(), 'Client', 'dist', 'index.html'));
 });
