@@ -1,11 +1,6 @@
 
 # QUICKGPT
 
-> A collaborative full‑stack project — chat + AI integrations, payments, and user management.  
-> Built with a pinch of old‑school discipline and modern hustle. ⚡
-
----
-
 ## Project overview
 
 **QUICKGPT** is a full-stack chat application that integrates OpenAI-like capabilities for AI responses, user authentication, message history, and payment/credit management (Stripe). It’s split into two parts:
