@@ -13,7 +13,7 @@ import {dirname} from 'path'
 
 // ESM equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const app = express()
 
