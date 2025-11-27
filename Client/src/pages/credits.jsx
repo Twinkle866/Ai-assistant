@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import Loading from './loading'
 import { useAppContext } from '../context/AppContext'
+import { toast } from 'react-hot-toast'
 
 
 const credits = () => {
