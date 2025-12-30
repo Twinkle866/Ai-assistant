@@ -21,10 +21,11 @@ const ChatBox = () => {
     try {
           e.preventDefault();
 if(!user)return toast('login to send message')
+if(!selectedChat)return toast('Select a chat first')
   setLoading(true);
 const promptCopy=prompt
 setPrompt('');
-setMessages(prev=>[...prev,{role:'user',content:prompt,timestamp:Date.now,
+setMessages(prev=>[...prev,{role:'user',content:prompt,timestamp:Date.now(),
   isImage:false}])
 
   const {data}=await axios.post(`/api/message/${mode}`,{chatId:selectedChat._id,prompt,isPublished},
