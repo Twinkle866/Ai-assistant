@@ -6,9 +6,9 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-cpp';            // ✅ Add C
-import 'prismjs/components/prism-javascript'   // Optional
-import 'prismjs/components/prism-python'       // Optional
+import 'prismjs/components/prism-cpp';            
+import 'prismjs/components/prism-javascript'   
+import 'prismjs/components/prism-python'       
 
 const Message = ({ message, theme }) => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const Message = ({ message, theme }) => {
             ${theme === 'dark' ? 'bg-[#57317C]/30' : 'bg-gray-100'}`}>
             <p className='text-sm dark:text-primary'>{message.content}</p>
             <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              {moment(message.timestamp).fromNow()}
+              {message.timestamp.fromNow()}
             </span>
           </div>
           <img src={assets.user_icon} alt="" className='w-8 rounded-full' />
@@ -54,7 +54,7 @@ const Message = ({ message, theme }) => {
             </div>
           )}
           <span className='text-xs text-gray-400 dark:text-[#B1A6C0]'>
-            {moment(message.timestamp).fromNow()}
+            {message.timestamp.fromNow()}
           </span>
         </div>
       )}
